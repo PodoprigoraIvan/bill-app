@@ -4,10 +4,10 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <navigation>
-		<router-link type="button" class="btn btn-primary" to="/">Home</router-link>
-		<router-link to="/about">About</router-link>
-		<router-link to="/persons">Persons</router-link>
-		<router-link to="/products">Products</router-link>
+		<router-link type="button" class="btn btn-primary" to="/">Главная</router-link>
+		<router-link type="button" class="btn btn-primary" to="/persons">Добавить людей</router-link>
+		<router-link type="button" class="btn btn-primary" to="/products">Добавить блюда</router-link>
+    <router-link type="button" class="btn btn-primary" to="/result">Итоговый рассчет</router-link>
 	</navigation>
 	<main>
 		<router-view></router-view>
@@ -16,7 +16,12 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <style scoped lang="sass">
   navigation
-    margin: 10vh
+    display: inline-block
+    width: 100vw
+    background-color: #C1CFF5
   a
-    margin: 10vh
+    margin-left: 4vh
+    margin-top: 2vw
+    margin-bottom: 2vw
+
 </style>

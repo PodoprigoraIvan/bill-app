@@ -1,3 +1,3 @@
 <template>
-    <h1>Persons</h1>
+    <h1>Добавление людей</h1>
 </template>
