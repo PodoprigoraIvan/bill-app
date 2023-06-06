@@ -3,7 +3,7 @@ import { Store } from 'vuex'
 export default new Store({
 	state: {
         persons : [],
-        products: []
+        products: [{id: 0, name: "баклан", payerId: 1, price: 100, consumersIds: [1,2]}]
     },
 
     mutations: {
@@ -45,7 +45,7 @@ export default new Store({
         removePerson(state, {id}){
             state.persons = state.persons.filter(person => person.id !== id);
             state.products.forEach(product => {
-                if (product.payerId == id) product.payerId = undefined;
+                if (product.payerId == id) product.payerId = state.persons[0].id;
                 product.consumersIds = product.consumersIds.filter(consumerId => consumerId != id);
             });
         }

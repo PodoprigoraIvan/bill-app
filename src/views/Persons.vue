@@ -17,8 +17,10 @@ export default {
 
     methods: {
         add(){
-            if (this.newName != "")
+            if (this.newName != "") {
                 this.$store.dispatch('addPerson', {name: this.newName});
+                this.newName = "";
+            }
         },
 
         remove(id){
@@ -44,11 +46,11 @@ export default {
 
 <template>
     <h1>Добавление людей</h1>
-    <input v-model="newName" maxlength="25" />
+    <input v-model="newName" v-on:keyup.enter="add" maxlength="25" />
     <button type="button" class="btn btn-secondary" @click="add()">
         <i class="bi bi-plus-circle"></i>
     </button>
-    <li class="list-item" v-for="{id, name} in persons" :key="id">
+    <li v-for="{id, name} in persons" :key="id">
         <p class="personName">{{name}}</p>
         <button type="button" class="btn btn-secondary" @click="editOpen(id, name)">
             <i class="bi bi-pencil"></i>
@@ -57,7 +59,6 @@ export default {
         <button type="button" class="btn btn-secondary" @click="remove(id)">
             <i class="bi bi-trash"></i>
         </button>
-
     </li>
 
     <dialog id="editDialog">
@@ -71,7 +72,7 @@ export default {
 
 <style scoped lang="sass">
     i
-        font-size: 20px
+        font-size: 15px
     li
         list-style: none
         margin-top: 1vh
