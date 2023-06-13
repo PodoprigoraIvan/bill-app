@@ -26,11 +26,11 @@ export default {
 
     methods: {
         add(){
-            // if (this.newProductName != "") {
-            //     this.$store.dispatch('addProduct', {name: this.newProductName, price: this.newProductPrice, payerId: this.newProductPayerId});
-            //     this.newProductName = "";
-            // }
             this.$store.dispatch('addProduct', {name: "", price: "1", payerId: this.persons[0].id});
+        },
+
+        remove(id){
+            this.$store.dispatch('removeProduct', {id});
         },
 
         onSelectChange(payerId, productId){
@@ -38,7 +38,6 @@ export default {
         },
 
         onCheckBoxChange(productId, consumerId, checked){
-            console.log(productId, consumerId, checked);
             if (checked)
                 this.$store.dispatch('addConsumerToProduct', {id: productId, consumerId: consumerId});
             else
@@ -55,7 +54,7 @@ export default {
     }
 
 }
-    
+
 </script>
 
 <template>
@@ -85,6 +84,9 @@ export default {
                         {{person.name}}
                 </label>
             </div>
+            <button type="button" class="btn btn-secondary" @click="remove(product.id)">
+                <i class="bi bi-trash"></i>
+            </button>
         </li>
     </div>
 

@@ -9,13 +9,13 @@ export default new Store({
 
     mutations: {
         addPerson(state, {name}) {
-            let id = 0;
+            let id = 1;
             let personsSize = state.persons.length;
             if (personsSize != 0) id = state.persons[personsSize - 1].id + 1;
             state.persons.push({id, name});
         },
         addProduct(state, {name, price, payerId}) {
-            let id = 0;
+            let id = 1;
             let productsSize = state.products.length;
             if (productsSize != 0) id = state.products[productsSize - 1].id + 1;
             state.products.push({id: id, name: name, payerId: payerId, price: price, consumersIds: []});
@@ -60,7 +60,12 @@ export default new Store({
         removePerson(state, {id}){
             state.persons = state.persons.filter(person => person.id !== id);
             state.products.forEach(product => {
-                if (product.payerId == id) product.payerId = state.persons[0].id;
+                if (product.payerId === id) {
+                    if (state.persons.length > 0)
+                        product.payerId = state.persons[0].id;
+                    else
+                        product.payerId = 1;
+                }
                 product.consumersIds = product.consumersIds.filter(consumerId => consumerId != id);
             });
         }
