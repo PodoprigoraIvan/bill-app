@@ -30,6 +30,7 @@ export default {
         editOpen(id, name){
             this.editName = name;
             document.getElementById("editDialog").showModal();
+            //this.$el.querySelector('#editDialog').showModal();
             this.editingId = id;
         },
 

@@ -3,7 +3,8 @@ import { Store } from 'vuex'
 export default new Store({
 	state: {
         persons : [],
-        products: [{id: 0, name: "баклан", payerId: 1, price: 100, consumersIds: [1,2]}]
+        products: []
+        //products: [{id: 0, name: "баклан", payerId: 1, price: 100, consumersIds: [1,2]}]
     },
 
     mutations: {
@@ -39,6 +40,20 @@ export default new Store({
             let foundedProduct = state.products.find(product => product.id === id);
             if (foundedProduct != undefined) foundedProduct.consumersIds = consumersIds;
         },
+        addConsumerToProduct(state, {id, consumerId}){
+            let foundedProduct = state.products.find(product => product.id === id);
+            if (foundedProduct != undefined) {
+                if (foundedProduct.consumersIds.find(id => id === consumerId) === undefined){
+                    foundedProduct.consumersIds.push(consumerId);
+                }
+            }
+        },
+        deleteConsumerFromProduct(state, {id, consumerId}){
+            let foundedProduct = state.products.find(product => product.id === id);
+            if (foundedProduct != undefined) {
+                foundedProduct.consumersIds = foundedProduct.consumersIds.filter(id => id != consumerId);
+            }
+        },
         removeProduct(state, {id}){
             state.products = state.products.filter(product => product.id !== id);
         },
@@ -72,6 +87,12 @@ export default new Store({
         },
         editProductConsumersIds({ commit }, payload) {
             commit('editProductConsumersIds', payload);
+        },
+        addConsumerToProduct({ commit }, payload) {
+            commit('addConsumerToProduct', payload);
+        },
+        deleteConsumerFromProduct({ commit }, payload) {
+            commit('deleteConsumerFromProduct', payload);
         },
         removeProduct({ commit }, payload) {
             commit('removeProduct', payload);
