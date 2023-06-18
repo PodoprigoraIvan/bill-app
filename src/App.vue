@@ -1,32 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <navigation>
-		<router-link type="button" class="btn btn-primary" to="/">Главная</router-link>
-		<router-link type="button" class="btn btn-primary" to="/persons">Добавить людей</router-link>
-		<router-link type="button" class="btn btn-primary" to="/products">Добавить блюда</router-link>
+    <navigation>
+        <router-link type="button" class="btn btn-primary" to="/">Главная</router-link>
+        <router-link type="button" class="btn btn-primary" to="/persons">Добавить людей</router-link>
+        <router-link type="button" class="btn btn-primary" to="/products">Добавить блюда</router-link>
     <router-link type="button" class="btn btn-primary" to="/result">Итоговый рассчет</router-link>
-	</navigation>
-	<main>
-		<router-view></router-view>
-	</main>
+    </navigation>
+    <main>
+        <router-view></router-view>
+    </main>
 </template>
 
 <style scoped lang="sass">
-  navigation
-    display: inline-block
-    width: 60vw
+
+navigation
+    display: flex
+    justify-content: space-between
+    width: 50vw
     background-color: #C1CFF5
-    border-radius: 3vh
-    margin-left: 1vh
-    margin-top: 1vh
-  a
-    margin-left: 4vh
-    margin-top: 2vw
-    margin-bottom: 2vw
-  main
-    padding: 1vw
+    border-radius: 5px
+    margin: 1vh auto 1vh auto
+    padding: 10px
+
+main
+    width: 50vw
+    margin-left: auto
+    margin-right: auto
+
+a
+    margin: 10px
 
 </style>

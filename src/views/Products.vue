@@ -20,8 +20,9 @@ export default {
     },
 
     mounted(){
-        if (this.persons.length > 0)
+        if (this.persons.length > 0) {
             this.newProductPayerId = this.persons[0].id;
+        }
     },
 
     methods: {
@@ -59,60 +60,85 @@ export default {
 
 <template>
     <h1>Добавление блюд</h1>
-    <div v-if="persons.length > 0">
-        <p>Добавить блюдо 
-            <button type="button" class="btn btn-secondary" @click="add()">
-                <i class="bi bi-plus-circle"></i>
-            </button>
-        </p>
+    <div v-if="persons.length > 1">
+        <button type="button" class="btn btn-secondary centered" @click="add()">
+            Добавить блюдо
+            <i class="bi bi-plus-circle"></i>
+        </button>
+        <TransitionGroup name="list" tag="ul" appear>
+            <li v-for="product in products" :key="product.id">
+                <div class="name-and-price">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Название</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" v-model="product.name" @input="editName(product.id, $event.target.value)">
+                    </div>
 
-        <li v-for="product in products" :key="product.id">
-            <p>Название: <input v-model="product.name" @input="editName(product.id, $event.target.value)"></p>
-            <p>Цена: <input type="number" min="1" v-model="product.price" @input="editPrice(product.id, $event.target.value)"></p>
-            <p>Кто оплатил: 
-                <select v-model="product.payerId" @change="onSelectChange($event.target.value, product.id)">
-                    <option v-for="{name, id} in persons" :value="id">{{name}}</option>
-                </select>
-            </p>
-            <p>Кто ел:</p>
-            <div class="consumers">
-                <label v-for="person in persons" class="btn btn-outline-primary">
-                    <input 
-                        :checked="product.consumersIds.find(id => id === person.id)"
-                        @change="onCheckBoxChange(product.id, person.id, $event.target.checked)"
-                        type="checkbox" autocomplete="off"> 
-                        {{person.name}}
-                </label>
-            </div>
-            <button type="button" class="btn btn-secondary" @click="remove(product.id)">
-                <i class="bi bi-trash"></i>
-            </button>
-        </li>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Цена</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" min="1" v-model="product.price" @input="editPrice(product.id, $event.target.value)">
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Кто оплатил</span>
+                    </div>
+                    <select class="form-select" v-model="product.payerId" @change="onSelectChange($event.target.value, product.id)">
+                        <option v-for="{name, id} in persons" :value="id">{{name}}</option>
+                    </select>
+                </div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Кто ел:</span>
+                </div>
+                <div class="consumers">
+                    <label v-for="person in persons" class="btn btn-outline-primary">
+                        <input 
+                            :checked="product.consumersIds.find(id => id === person.id)"
+                            @change="onCheckBoxChange(product.id, person.id, $event.target.checked)"
+                            type="checkbox" autocomplete="off"> 
+                            {{person.name}}
+                    </label>
+                </div>
+                <button type="button" class="btn btn-secondary" @click="remove(product.id)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </li>
+        </TransitionGroup>
     </div>
 
-    <p v-else class="noPeopleMessage">Сначала добавьте <router-link to="/persons">людей</router-link></p>
+    <p v-else class="warningMessage">Сначала добавьте нескольких <router-link to="/persons">людей</router-link></p>
     
 </template>
 
 <style scoped lang="sass">
 
-#newProduct
-    margin-bottom: 5vh
-
 li
     list-style: none
+    margin-top: 10px
+    padding: 10px
+    border-radius: 5px
 
 label
-    margin-right: 10px
+    margin-right: 8px
 
-.noPeopleMessage
-    border-radius: 3vh
-    background-color: #DA4545
-    font-size: large
-    color: white
-    padding: 3vh
+.name-and-price
+    display: flex
+    justify-content: space-between
 
-a
-    color: #A7CDAC
+.input-group
+    width: 24vw
+
+span
+    width: 7vw
+
+p
+    font-size: 1.3rem
+
+.btn
+    margin-top: 10px
 
 </style>

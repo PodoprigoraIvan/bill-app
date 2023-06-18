@@ -1,2 +1,38 @@
 @import "~bootstrap/scss/bootstrap.scss"
 @import "~icons/font/bootstrap-icons.css"
+
+.warningMessage
+    border-radius: 3vh
+    background-color: #DA4545
+    font-size: large
+    color: white
+    padding: 3vh
+    a
+        color: #A7CDAC
+
+h1
+    text-align: center
+
+.centered
+    position: relative
+    left: 50%
+    transform: translate(-50%, 0)
+
+.list-move, .list-enter-active, .list-leave-active
+    transition: all 0.3s ease
+
+.list-enter-from, .list-leave-to
+    opacity: 0
+    transform: translateX(30px)
+
+.list-leave-active
+    position: absolute
+
+ul
+    padding-left: 0
+
+li:nth-child(even)
+    background-color: #d7f5f7
+
+li:nth-child(odd)
+    background-color: #cfe6e8

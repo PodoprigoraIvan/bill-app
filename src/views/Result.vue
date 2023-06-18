@@ -18,7 +18,7 @@ export default {
         }
     },
 
-    mounted(){
+    mounted() {
         if (this.persons.length > 1 && this.products.length > 0){
             this.readyToGetResult = true;
             this.persons.forEach(person => {
@@ -30,8 +30,8 @@ export default {
             });
             this.products.forEach(product => {
                 product.consumersIds.forEach(consumerId => {
-                    this.debts[product.payerId][consumerId] += product.price / product.consumersIds.length;
-                    this.debts[consumerId][product.payerId] -= product.price / product.consumersIds.length;
+                    this.debts[product.payerId][consumerId] -= product.price / product.consumersIds.length;
+                    this.debts[consumerId][product.payerId] += product.price / product.consumersIds.length;
                 });
             });
             for (let payerId in this.debts) {
@@ -45,22 +45,16 @@ export default {
                         });
                     }
                 }
-                console.log("LIST1:",debtorsList);
                 if (debtorsList.length > 0) {
                     this.debtsFinalList.push({
                         name: this.persons.find(person => person.id === +payerId).name,
                         debtorsList: debtorsList
                     });
-                    console.log("LIST:",this.debtsFinalList);
                 }
                 
             }
         }
     },
-
-    methods: {
-        
-    }
 
 }
     
@@ -68,25 +62,34 @@ export default {
 
 <template>
     <h1>Итог</h1>
+    <p class="no-debtors-msg" v-if="debtsFinalList.length === 0 && readyToGetResult">Так уж вышло, что никто никому ничего не должен!</p>
     <div v-if="readyToGetResult">
         <div v-for="{name, debtorsList} in debtsFinalList">
-            <p><b>{{name}}</b> должен получить от людей:</p>
-            <p v-for="{name, summ} in debtorsList">{{ name }} - {{summ.toFixed(2)}} у.е.</p>
+            <p class="debtor-name"><b>{{name}}</b> должен следующим людям соответстенно:</p>
+            <li v-for="{name, summ} in debtorsList"><p>{{ name }} - {{summ.toFixed(2)}}</p></li>
         </div>
     </div>
-    <p v-else class="CantGetResultMessage">Сначала добавьте как минимум двух <router-link to="/persons">людей</router-link> и как минимум одно <router-link to="/products">блюдо</router-link></p>
+    <p v-else class="warningMessage">Сначала добавьте как минимум двух <router-link to="/persons">людей</router-link> и как минимум одно <router-link to="/products">блюдо</router-link></p>
 </template>
 
 <style scoped lang="sass">
 
-.CantGetResultMessage
-    border-radius: 3vh
-    background-color: #DA4545
-    font-size: large
-    color: white
-    padding: 3vh
+.debtor-name
+    margin-top: 15px
 
-a
-    color: #A7CDAC
+p, li
+    font-size: 1.3rem
+
+.no-debtors-msg
+    text-align: center
+    background-color: lightgreen
+    padding: 10px
+    border-radius: 10px
+
+li
+    list-style: none
+    padding: 10px
+    border-radius: 10px
+    margin-bottom: 3px
 
 </style>
