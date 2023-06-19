@@ -14,6 +14,7 @@ export default {
         persons(){
             return this.$store.state.persons;
         },
+
         products(){
             return this.$store.state.products;
         }
@@ -131,9 +132,6 @@ label
 
 .input-group
     width: 24vw
-
-span
-    width: 7vw
 
 p
     font-size: 1.3rem

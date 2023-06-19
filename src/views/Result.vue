@@ -13,6 +13,7 @@ export default {
         persons(){
             return this.$store.state.persons;
         },
+        
         products(){
             return this.$store.state.products;
         }
@@ -51,11 +52,9 @@ export default {
                         debtorsList: debtorsList
                     });
                 }
-                
             }
         }
     },
-
 }
     
 </script>
@@ -76,6 +75,7 @@ export default {
 
 .debtor-name
     margin-top: 15px
+    text-align: center
 
 p, li
     font-size: 1.3rem

@@ -3,7 +3,7 @@
 
 <template>
     <navigation>
-        <router-link type="button" class="btn btn-primary" to="/">Главная</router-link>
+        <router-link type="button" class="btn btn-primary" to="/">Информация о приложении</router-link>
         <router-link type="button" class="btn btn-primary" to="/persons">Добавить людей</router-link>
         <router-link type="button" class="btn btn-primary" to="/products">Добавить блюда</router-link>
     <router-link type="button" class="btn btn-primary" to="/result">Итоговый рассчет</router-link>

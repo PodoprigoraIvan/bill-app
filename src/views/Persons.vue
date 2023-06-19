@@ -41,7 +41,7 @@ export default {
     }
 
 }
-    
+
 </script>
 
 <template>
@@ -71,13 +71,15 @@ export default {
         <input v-model="editName" maxlength="25" />
         <button type="button" class="btn btn-secondary" @click="editClose()">
             <i class="bi bi-check-square"></i>
-        </button>    
+        </button>
     </dialog>
 </template>
 
 <style scoped lang="sass">
+
 i
     font-size: 15px
+
 li
     list-style: none
     padding: 5px
@@ -90,6 +92,6 @@ li
     margin-left: 3px
 
 .personName
-    width: 60vw    
+    width: 60vw
 
 </style>
