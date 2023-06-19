@@ -69,7 +69,7 @@ export default new Store({
         removePerson(state, {id}){
             state.persons = state.persons.filter(person => person.id !== id);
             state.products.forEach(product => {
-                if (product.payerId === id) {
+                if (+product.payerId === +id) {
                     if (state.persons.length > 0)
                         product.payerId = state.persons[0].id;
                     else

@@ -30,6 +30,7 @@ main
     margin-right: auto
 
 a
-    margin: 10px
+    margin: 0.5vw
+    font-size: 1.3vw
 
 </style>

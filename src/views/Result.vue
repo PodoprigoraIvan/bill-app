@@ -61,21 +61,36 @@ export default {
 
 <template>
     <h1>Итог</h1>
+    
     <p class="no-debtors-msg" v-if="debtsFinalList.length === 0 && readyToGetResult">Так уж вышло, что никто никому ничего не должен!</p>
+    <transition name="results" appear>
     <div v-if="readyToGetResult">
-        <div v-for="{name, debtorsList} in debtsFinalList">
+        <div class="debtors-info" v-for="{name, debtorsList} in debtsFinalList">
             <p class="debtor-name"><b>{{name}}</b> должен следующим людям соответстенно:</p>
-            <li v-for="{name, summ} in debtorsList"><p>{{ name }} - {{summ.toFixed(2)}}</p></li>
+            <li v-for="{name, summ} in debtorsList"><p><b>{{ name }}</b> - {{summ.toFixed(2)}}</p></li>
         </div>
     </div>
-    <p v-else class="warningMessage">Сначала добавьте как минимум двух <router-link to="/persons">людей</router-link> и как минимум одно <router-link to="/products">блюдо</router-link></p>
+    </transition>
+    <p v-if="!readyToGetResult" class="warningMessage">Сначала добавьте как минимум двух <router-link to="/persons">людей</router-link> и как минимум одно <router-link to="/products">блюдо</router-link></p>
 </template>
 
 <style scoped lang="sass">
 
+.results-enter-active, .results-leave-active
+    transition: all 0.6s ease
+
+.results-enter-from, .results-leave-to
+    opacity: 0
+    transform: translateY(50px)
+
 .debtor-name
     margin-top: 15px
     text-align: center
+
+.debtors-info
+    background-color: #b9c8ff
+    padding: 0 5px 5px 5px
+    border-radius: 10px
 
 p, li
     font-size: 1.3rem
